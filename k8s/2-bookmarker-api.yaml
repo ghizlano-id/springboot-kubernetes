@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookmaker-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookmaker-api-pod
+  template:
+    metadata:
+      labels:
+        app: bookmaker-api-pod
+    spec:
+      containers:
+      - image: gelidrissi/bookmarker-api:1.0
+        imagePullPolicy: Never
+        name: bookmarker-api
+        ports:
+          - containerPort: 8080
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: k8s
